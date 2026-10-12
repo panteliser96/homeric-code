@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="el" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Homeric Code — Ιστοσελίδες & Εφαρμογές</title>
+  <meta name="description" content="Homeric Code: σχεδιασμός, κατασκευή και διαχείριση ιστοσελίδων και web εφαρμογών για επιχειρήσεις. Χίος, Ελλάδα.">
+  <meta name="theme-color" content="#0e1116">
+  <meta property="og:title" content="Homeric Code — Ιστοσελίδες & Εφαρμογές">
+  <meta property="og:description" content="Σχεδιασμός, κατασκευή και διαχείριση ιστοσελίδων και web εφαρμογών.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="skip">Μετάβαση στο περιεχόμενο</a>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top" aria-label="Homeric Code">
+        <img src="logo.svg" alt="" width="30" height="30" class="brand__logo">
+        <span>Homeric<b>Code</b></span>
+      </a>
+      <nav class="nav__links" id="navLinks" aria-label="Κύριο μενού">
+        <a href="#services" data-i18n="nav.services">Υπηρεσίες</a>
+        <a href="#process" data-i18n="nav.process">Διαδικασία</a>
+        <a href="#work" data-i18n="nav.work">Έργα</a>
+        <a href="#about" data-i18n="nav.about">Σχετικά</a>
+        <a href="#contact" class="btn btn--sm" data-i18n="nav.contact">Επικοινωνία</a>
+      </nav>
+      <div class="nav__tools">
+        <button class="lang" id="langToggle" type="button" aria-label="Change language">EN</button>
+        <button class="burger" id="burger" type="button" aria-label="Μενού" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="wrap hero__inner">
+        <p class="eyebrow" data-i18n="hero.eyebrow">Web development · Χίος</p>
+        <h1 class="hero__title" data-i18n-html="hero.title">Ιστοσελίδες και εφαρμογές<br>που <em>δουλεύουν</em> για την επιχείρησή σας.</h1>
+        <p class="hero__lead" data-i18n="hero.lead">Σχεδιάζω, κατασκευάζω και διαχειρίζομαι γρήγορες, ασφαλείς ιστοσελίδες και web εφαρμογές — από την πρώτη ιδέα μέχρι τη συντήρηση.</p>
+        <div class="hero__cta">
+          <a href="#contact" class="btn" data-i18n="hero.cta1">Ζητήστε προσφορά</a>
+          <a href="#services" class="btn btn--ghost" data-i18n="hero.cta2">Δείτε τις υπηρεσίες</a>
+        </div>
+        <ul class="hero__facts">
+          <li><strong>WordPress</strong><span data-i18n="hero.f1">ιστοσελίδες & e-shop</span></li>
+          <li><strong>.NET · JS</strong><span data-i18n="hero.f2">custom εφαρμογές</span></li>
+          <li><strong>SEO</strong><span data-i18n="hero.f3">τοπική προβολή στο Google</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" id="services">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="eyebrow" data-i18n="services.eyebrow">Υπηρεσίες</p>
+          <h2 data-i18n="services.title">Ό,τι χρειάζεστε για να είστε online</h2>
+        </header>
+        <div class="grid grid--3">
+          <article class="card reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M7 21h10"/></svg>
+            </div>
+            <h3 data-i18n="s1.t">Κατασκευή ιστοσελίδων</h3>
+            <p data-i18n="s1.d">Εταιρικές σελίδες, landing pages και e-shop σε WordPress, προσαρμοσμένα στο κινητό και στην ταυτότητά σας.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>
+            </div>
+            <h3 data-i18n="s2.t">Web εφαρμογές</h3>
+            <p data-i18n="s2.d">Custom εφαρμογές, πάνελ διαχείρισης, κρατήσεις και διασυνδέσεις με τρίτα συστήματα και APIs.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <h3 data-i18n="s3.t">Διαχείριση & συντήρηση</h3>
+            <p data-i18n="s3.d">Ενημερώσεις, backups, ασφάλεια και αλλαγές περιεχομένου — για να μη χρειάζεται να ασχολείστε εσείς.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+            </div>
+            <h3 data-i18n="s4.t">SEO & Google Business</h3>
+            <p data-i18n="s4.d">Τοπικό SEO και βελτιστοποίηση Google Business Profile ώστε να σας βρίσκουν οι πελάτες της περιοχής.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="m4 7 8 6 8-6"/></svg>
+            </div>
+            <h3 data-i18n="s5.t">Domain, hosting & email</h3>
+            <p data-i18n="s5.d">Επιλογή και στήσιμο domain, φιλοξενίας και επαγγελματικού email με το όνομα της επιχείρησής σας.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 20v-6M6 20V10M18 20V4"/></svg>
+            </div>
+            <h3 data-i18n="s6.t">Απόδοση & ταχύτητα</h3>
+            <p data-i18n="s6.d">Βελτιστοποίηση φόρτωσης, Core Web Vitals και προσβασιμότητα για καλύτερη εμπειρία και κατάταξη.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section section--alt" id="process">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="eyebrow" data-i18n="process.eyebrow">Διαδικασία</p>
+          <h2 data-i18n="process.title">Απλά, καθαρά, χωρίς εκπλήξεις</h2>
+        </header>
+        <ol class="steps">
+          <li class="reveal"><span class="steps__n">01</span><h3 data-i18n="p1.t">Γνωριμία</h3><p data-i18n="p1.d">Συζητάμε τους στόχους, το κοινό και τι πρέπει να κάνει η σελίδα.</p></li>
+          <li class="reveal"><span class="steps__n">02</span><h3 data-i18n="p2.t">Πρόταση</h3><p data-i18n="p2.d">Λαμβάνετε γραπτή οικονομική προσφορά με σταθερή τιμή και χρονοδιάγραμμα.</p></li>
+          <li class="reveal"><span class="steps__n">03</span><h3 data-i18n="p3.t">Σχεδιασμός & ανάπτυξη</h3><p data-i18n="p3.d">Wireframe, σχέδιο και κατασκευή, με ενδιάμεσους ελέγχους από εσάς.</p></li>
+          <li class="reveal"><span class="steps__n">04</span><h3 data-i18n="p4.t">Παράδοση & υποστήριξη</h3><p data-i18n="p4.d">Ανέβασμα online, εκπαίδευση στη διαχείριση και συνεχής υποστήριξη.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section class="section" id="work">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="eyebrow" data-i18n="work.eyebrow">Έργα</p>
+          <h2 data-i18n="work.title">Πρόσφατη δουλειά</h2>
+        </header>
+        <article class="project reveal">
+          <div class="project__visual" aria-hidden="true">
+            <div class="mock">
+              <div class="mock__bar"><i></i><i></i><i></i><span>innerfuelwellness.gr</span></div>
+              <div class="mock__body">
+                <div class="mock__h"></div>
+                <div class="mock__p"></div>
+                <div class="mock__p mock__p--short"></div>
+                <div class="mock__row"><b></b><b></b><b></b></div>
+              </div>
+            </div>
+          </div>
+          <div class="project__text">
+            <p class="tag" data-i18n="work.tag">WordPress · Υγεία & ευεξία</p>
+            <h3>InnerFuel Wellness</h3>
+            <p data-i18n="work.d">Ιστοσελίδα για διαιτολόγο: παρουσίαση προγραμμάτων, blog και φόρμα επικοινωνίας. Στήσιμο domain, hosting και επαγγελματικού email από την αρχή.</p>
+            <ul class="chips">
+              <li>WordPress</li><li>Elementor</li><li data-i18n="work.c3">Blog</li><li data-i18n="work.c4">Επαγγελματικό email</li>
+            </ul>
+            <a class="link" href="https://innerfuelwellness.gr" target="_blank" rel="noopener" data-i18n="work.link">Επίσκεψη ιστοσελίδας →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section section--alt" id="about">
+      <div class="wrap about">
+        <div>
+          <p class="eyebrow" data-i18n="about.eyebrow">Σχετικά</p>
+          <h2 data-i18n="about.title">Ένας developer, άμεση επικοινωνία</h2>
+        </div>
+        <div class="about__text">
+          <p data-i18n="about.p1">Η Homeric Code είναι η ατομική μου επιχείρηση ανάπτυξης web. Είμαι Full Stack Engineer με εμπειρία σε μεγάλα συστήματα του δημοσίου (.NET, SQL Server, διασυνδέσεις με κυβερνητικές υπηρεσίες) και φέρνω την ίδια αξιοπιστία στα έργα μικρών επιχειρήσεων.</p>
+          <p data-i18n="about.p2">Με έδρα τη Χίο, συνεργάζομαι με πελάτες σε όλη την Ελλάδα. Μιλάτε απευθείας με αυτόν που φτιάχνει τη σελίδα σας — χωρίς ενδιάμεσους.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="wrap contact">
+        <div>
+          <p class="eyebrow" data-i18n="contact.eyebrow">Επικοινωνία</p>
+          <h2 data-i18n="contact.title">Ας φτιάξουμε κάτι μαζί</h2>
+          <p class="muted" data-i18n="contact.lead">Πείτε μου λίγα λόγια για το έργο σας και θα επανέλθω με πρόταση μέσα σε 1–2 εργάσιμες.</p>
+          <a class="mail" href="mailto:homericcode@gmail.com">homericcode@gmail.com</a>
+        </div>
+        <form class="form" id="contactForm" novalidate>
+          <label><span data-i18n="f.name">Όνομα</span><input name="name" required autocomplete="name"></label>
+          <label><span data-i18n="f.email">Email</span><input name="email" type="email" required autocomplete="email"></label>
+          <label><span data-i18n="f.type">Τι χρειάζεστε;</span>
+            <select name="type">
+              <option data-i18n="f.o1">Νέα ιστοσελίδα</option>
+              <option data-i18n="f.o2">Web εφαρμογή</option>
+              <option data-i18n="f.o3">Διαχείριση / συντήρηση</option>
+              <option data-i18n="f.o4">SEO</option>
+              <option data-i18n="f.o5">Άλλο</option>
+            </select>
+          </label>
+          <label><span data-i18n="f.msg">Μήνυμα</span><textarea name="message" rows="4" required></textarea></label>
+          <button class="btn" type="submit" data-i18n="f.send">Αποστολή</button>
+          <p class="form__note" id="formNote" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <span>© <span id="year">2026</span> Homeric Code · <span data-i18n="footer.loc">Χίος, Ελλάδα</span></span>
+      <a href="#top" data-i18n="footer.top">Επιστροφή επάνω ↑</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

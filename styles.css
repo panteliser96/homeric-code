@@ -5,8 +5,8 @@
   --ink: #141311;
   --ink-2: #3b3833;
   --mute: #6f6a60;
-  --clay: #c4612f;
-  --clay-deep: #a94e22;
+  --clay: #d4865c;
+  --clay-deep: #b96c43;
   --line: rgba(20, 19, 17, .16);
   --serif: "Geologica", "Commissioner", system-ui, sans-serif;
   --sans: "Commissioner", system-ui, sans-serif;
@@ -197,7 +197,7 @@ button { font: inherit; color: inherit; }
 .b-hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 18px; align-items: center; margin-bottom: 22px; }
 .b-hero em { display: block; height: 14px; background: #2f3f2b; border-radius: 3px; margin-bottom: 8px; }
 .b-hero em.s { width: 60%; }
-.b-hero u { display: block; width: 90px; height: 24px; border-radius: 12px; background: #c4612f; margin-top: 16px; }
+.b-hero u { display: block; width: 90px; height: 24px; border-radius: 12px; background: var(--clay); margin-top: 16px; }
 .b-hero figure { margin: 0; aspect-ratio: 1; border-radius: 50% 50% 8px 8px; background: radial-gradient(circle at 40% 35%, #b9cba9, #7f9a6f); }
 .b-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .b-row b { height: 54px; border-radius: 6px; background: #fff; border: 1px solid #dcd8cc; }

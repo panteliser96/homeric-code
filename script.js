@@ -173,7 +173,7 @@
   let W = 0, H = 0, DPR = 1, strings = [];
   const css = getComputedStyle(root);
   const INK = css.getPropertyValue("--ink").trim() || "#141311";
-  const CLAY = css.getPropertyValue("--clay").trim() || "#c4612f";
+  const CLAY = css.getPropertyValue("--clay").trim() || "#d4865c";
   const PAPER = css.getPropertyValue("--paper").trim() || "#efeae0";
 
   // deterministic pseudo-random so the layout is stable
@@ -279,7 +279,7 @@
   }
   function mix(g) { // ink → clay as a string glows
     const a = 0.13 + g * 0.87;
-    return `rgba(196,97,47,${a.toFixed(3)})`;
+    return `rgba(212,134,92,${a.toFixed(3)})`;
   }
   buildStrings();
   let rT; addEventListener("resize", () => { clearTimeout(rT); rT = setTimeout(buildStrings, 120); });

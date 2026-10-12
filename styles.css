@@ -105,7 +105,8 @@ button { font: inherit; color: inherit; }
 .hero__meta { display: flex; justify-content: space-between; color: var(--mute); }
 .hero__body { align-self: end; display: grid; grid-template-columns: 1fr minmax(260px, 380px); gap: 40px; align-items: end; }
 .hero__body a { pointer-events: auto; }
-.hero__title { font: 400 clamp(2.8rem, 10vw, 9.6rem)/.92 var(--serif); letter-spacing: -.045em; }
+.hero__title { grid-column: 1 / -1; font: 400 clamp(2.6rem, 9vw, 9rem)/.95 var(--serif); letter-spacing: -.045em; }
+.hero__side { grid-column: 2; }
 .hero__title .line { display: block; overflow: hidden; padding-bottom: .06em; }
 .hero__title .line > span { display: inline-block; transform: translateY(105%); transition: transform 1.1s var(--ease); }
 .hero__title .line:nth-child(2) > span { transition-delay: .08s; }
@@ -284,6 +285,7 @@ button { font: inherit; color: inherit; }
   .bar__brand span { font-size: 1.05rem; }
   .hero { padding-top: 84px; }
   .hero__body { grid-template-columns: 1fr; gap: 28px; }
+  .hero__side { grid-column: 1; }
   .line--ital { padding-left: .4em; }
   .hero__meta > span:first-child { display: none; }
   .hero__meta { justify-content: flex-end; }

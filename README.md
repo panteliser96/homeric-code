@@ -7,10 +7,12 @@ Static site (HTML/CSS/JS, χωρίς build step), δίγλωσσο (ΕΛ/EN).
 ## Δομή
 
 ```
-index.html      Περιεχόμενο (ελληνικά ως προεπιλογή)
-styles.css      Στυλ
-script.js       Μεταφράσεις EN, μενού κινητού, animations, φόρμα επικοινωνίας
-logo.svg Λογότυπο / favicon
+index.html            Περιεχόμενο (ελληνικά ως προεπιλογή)
+styles.css            Στυλ — παλέτα χαρτί / μελάνι / πηλός
+script.js             Μεταφράσεις EN, χορδές λύρας (canvas + ήχος), cursor, animations, φόρμα
+logo.svg              Επίσημο λογότυπο (λύρα + λογότυπος), vector
+logo-mark.svg         Επίσημο σήμα (μόνο λύρα), vector
+favicon.png, apple-touch-icon.png, og-image.jpg
 ```
 
 ## Τοπική προβολή

@@ -1,121 +1,410 @@
 (() => {
-  document.documentElement.classList.remove("no-js");
-  const EMAIL = "homericcode@gmail.com";
+  "use strict";
+  const root = document.documentElement;
+  root.classList.remove("no-js");
 
+  const EMAIL = "homericcode@gmail.com";
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const $ = (s, c = document) => c.querySelector(s);
+  const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+
+  /* ── i18n ─────────────────────────────────────────── */
   const en = {
-    "skip": "Skip to content",
-    "nav.services": "Services", "nav.process": "Process", "nav.work": "Work", "nav.about": "About", "nav.contact": "Contact",
-    "hero.eyebrow": "Web development · Chios, Greece",
-    "hero.title": "Websites and apps<br>that <em>work</em> for your business.",
-    "hero.lead": "I design, build and manage fast, secure websites and web applications — from the first idea to ongoing maintenance.",
-    "hero.cta1": "Get a quote", "hero.cta2": "See services",
-    "hero.f1": "websites & e-shops", "hero.f2": "custom applications", "hero.f3": "local Google visibility",
-    "services.eyebrow": "Services", "services.title": "Everything you need to be online",
-    "s1.t": "Website development", "s1.d": "Business sites, landing pages and e-shops on WordPress, mobile-first and tailored to your brand.",
-    "s2.t": "Web applications", "s2.d": "Custom apps, admin panels, booking systems and integrations with third-party services and APIs.",
-    "s3.t": "Management & maintenance", "s3.d": "Updates, backups, security and content changes — so you don't have to deal with them.",
-    "s4.t": "SEO & Google Business", "s4.d": "Local SEO and Google Business Profile optimisation so nearby customers can find you.",
-    "s5.t": "Domain, hosting & email", "s5.d": "Choosing and setting up your domain, hosting and a professional email on your own name.",
-    "s6.t": "Performance & speed", "s6.d": "Load-time optimisation, Core Web Vitals and accessibility for a better experience and ranking.",
-    "process.eyebrow": "Process", "process.title": "Simple, clear, no surprises",
-    "p1.t": "Discovery", "p1.d": "We discuss your goals, your audience and what the site needs to do.",
-    "p2.t": "Proposal", "p2.d": "You get a written quote with a fixed price and timeline.",
-    "p3.t": "Design & build", "p3.d": "Wireframe, design and development, with check-ins along the way.",
-    "p4.t": "Launch & support", "p4.d": "Going live, training on how to manage it, and ongoing support.",
-    "work.eyebrow": "Work", "work.title": "Recent work",
-    "work.tag": "WordPress · Health & wellness",
-    "work.d": "Website for a dietitian: programme presentation, blog and contact form. Domain, hosting and professional email set up from scratch.",
-    "work.c3": "Blog", "work.c4": "Professional email", "work.link": "Visit website →",
-    "about.eyebrow": "About", "about.title": "One developer, direct communication",
-    "about.p1": "Homeric Code is my independent web development business. I'm a Full Stack Engineer with experience in large public-sector systems (.NET, SQL Server, government service integrations), and I bring the same reliability to projects for small businesses.",
-    "about.p2": "Based in Chios, I work with clients across Greece. You talk directly to the person building your site — no middlemen.",
-    "contact.eyebrow": "Contact", "contact.title": "Let's build something together",
-    "contact.lead": "Tell me a little about your project and I'll get back to you with a proposal within 1–2 business days.",
-    "f.name": "Name", "f.email": "Email", "f.type": "What do you need?", "f.msg": "Message", "f.send": "Send",
-    "f.o1": "New website", "f.o2": "Web application", "f.o3": "Management / maintenance", "f.o4": "SEO", "f.o5": "Other",
-    "footer.loc": "Chios, Greece", "footer.top": "Back to top ↑",
-    "form.err": "Please fill in your name, a valid email and a message.",
+    "skip": "Skip to content", "sound": "Lyre sound",
+    "nav.services": "Services", "nav.process": "Process", "nav.work": "Work", "nav.contact": "Contact",
+    "hero.chios": "Chios", "hero.l1": "Websites", "hero.l2": "& applications,", "hero.l3": "made with measure.",
+    "hero.lead": "I design, build and maintain websites and web applications for businesses that want something made properly — not another template.",
+    "hero.cta": "Start a project",
+    "hero.hint": "↔ move your cursor across the strings",
+    "hero.hintTouch": "↔ swipe across the strings",
+    "services.label": "Services", "services.title": "Six things I do well.",
+    "s1.t": "Website development", "s1.d": "Business sites, landing pages and e-shops on WordPress — fast, mobile-ready and shaped around your brand.",
+    "s2.t": "Web applications", "s2.d": "Custom applications, admin panels, booking systems and integrations with third-party systems via APIs.",
+    "s3.t": "Management & maintenance", "s3.d": "Updates, backups, security and content changes, so your site keeps working without you having to think about it.",
+    "s3.k": "monthly support",
+    "s4.t": "SEO & Google Business", "s4.d": "Local SEO and Google Business Profile, so people searching in your area can find you.",
+    "s5.t": "Domain, hosting & email", "s5.d": "Choosing and setting up your domain, hosting and a professional email on your business name.",
+    "s6.t": "Speed & accessibility", "s6.d": "Load-time optimisation, Core Web Vitals and accessibility — for a better experience and a better position on Google.",
+    "process.label": "Process", "process.title": "From the first conversation to going live.",
+    "p1.t": "Discovery", "p1.d": "We talk through your goals, your audience and exactly what the site needs to do.",
+    "p2.t": "Proposal", "p2.d": "A written quote with a fixed price and timeline. No fine print.",
+    "p3.t": "Design & build", "p3.d": "Wireframe, design and development, with your review at every step.",
+    "p4.t": "Launch & support", "p4.d": "Going live, training on how to manage it, and support for as long as you need it.",
+    "work.label": "Work", "work.tag": "WordPress · Health & wellness",
+    "work.d": "Website for a dietitian: programme presentation, blog and contact form. Domain, hosting and professional email set up from scratch, with guidance at every step.",
+    "work.link": "Visit the site",
+    "about.label": "Who builds it",
+    "about.big": "One developer in Chios. You talk directly to the person writing the code.",
+    "about.p1": "Homeric Code is my independent business. By day I'm a Full Stack Engineer on large information systems (.NET, SQL Server, government service integrations) — and I bring the same discipline to every project, however small.",
+    "about.p2": "The name? By tradition, Homer came from Chios. The lyre with circuit traces is my take on the rhapsode.",
+    "contact.label": "Contact", "contact.t1": "Let's", "contact.t2": "talk.",
+    "contact.lead": "Tell me a little about your project. I reply within 1–2 business days with first thoughts and a cost range.",
+    "contact.copy": "copy address", "contact.copied": "copied ✓",
+    "f.name": "Name", "f.email": "Email", "f.type": "What do you need?", "f.msg": "A few words about the project", "f.send": "Send",
+    "f.o1": "Website", "f.o2": "Application", "f.o3": "Maintenance", "f.o5": "Something else",
+    "footer.loc": "Chios, Greece", "footer.top": "back to top ↑",
+    "form.err": "Please add your name, a valid email and a message.",
     "form.ok": "Your email app is opening with the message ready to send."
   };
-
-  const elMsgs = {
+  const el = {
+    "hero.hintTouch": "↔ σύρετε το δάχτυλο πάνω από τις χορδές",
+    "contact.copied": "αντιγράφηκε ✓",
     "form.err": "Συμπληρώστε όνομα, έγκυρο email και μήνυμα.",
-    "form.ok": "Ανοίγει η εφαρμογή email σας με το μήνυμα έτοιμο για αποστολή."
+    "form.ok": "Ανοίγει η εφαρμογή email σας με το μήνυμα έτοιμο."
   };
-
-  // Capture the Greek (default) text straight from the markup.
-  const el = { ...elMsgs };
-  document.querySelectorAll("[data-i18n]").forEach(n => { el[n.dataset.i18n] = n.textContent; });
-  document.querySelectorAll("[data-i18n-html]").forEach(n => { el[n.dataset.i18nHtml] = n.innerHTML; });
+  $$("[data-i18n]").forEach(n => { el[n.dataset.i18n] = n.textContent; });
   const dict = { el, en };
-
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch { return null; } },
-    set(k, v) { try { localStorage.setItem(k, v); } catch { /* ignore */ } }
+    set(k, v) { try { localStorage.setItem(k, v); } catch { /* noop */ } }
   };
-
-  let lang = store.get("hc-lang") || (navigator.language || "el").slice(0, 2);
-  if (!dict[lang]) lang = "el";
-
+  let lang = store.get("hc-lang") || ((navigator.language || "el").startsWith("el") ? "el" : "en");
   const t = k => dict[lang][k] ?? dict.el[k] ?? k;
+  const hintKey = finePointer ? "hero.hint" : "hero.hintTouch";
 
   function applyLang() {
-    document.documentElement.lang = lang;
-    document.querySelectorAll("[data-i18n]").forEach(n => { n.textContent = t(n.dataset.i18n); });
-    document.querySelectorAll("[data-i18n-html]").forEach(n => { n.innerHTML = t(n.dataset.i18nHtml); });
-    document.getElementById("langToggle").textContent = lang === "el" ? "EN" : "ΕΛ";
-    document.title = lang === "el" ? "Homeric Code — Ιστοσελίδες & Εφαρμογές" : "Homeric Code — Websites & Apps";
+    root.lang = lang;
+    $$("[data-i18n]").forEach(n => { n.textContent = t(n.dataset.i18n); });
+    $(".hero__hint").textContent = t(hintKey);
+    $("#langToggle").textContent = lang === "el" ? "EN" : "ΕΛ";
+    document.title = lang === "el" ? "Homeric Code — Ιστοσελίδες & Εφαρμογές" : "Homeric Code — Websites & Applications";
   }
-
-  document.getElementById("langToggle").addEventListener("click", () => {
-    lang = lang === "el" ? "en" : "el";
-    store.set("hc-lang", lang);
-    applyLang();
+  $("#langToggle").addEventListener("click", () => {
+    lang = lang === "el" ? "en" : "el"; store.set("hc-lang", lang); applyLang();
   });
-  if (lang !== "el") applyLang();
+  applyLang();
 
-  // Mobile menu
-  const burger = document.getElementById("burger");
-  const links = document.getElementById("navLinks");
-  const setMenu = open => { burger.setAttribute("aria-expanded", open); links.classList.toggle("is-open", open); };
-  burger.addEventListener("click", () => setMenu(burger.getAttribute("aria-expanded") !== "true"));
-  links.addEventListener("click", e => { if (e.target.closest("a")) setMenu(false); });
+  /* ── Clock (Chios time) ───────────────────────────── */
+  const clock = $("#clock");
+  const fmt = new Intl.DateTimeFormat("el-GR", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Athens", hour12: false });
+  const tick = () => { clock.textContent = fmt.format(new Date()); };
+  tick(); setInterval(tick, 15000);
+  $("#year").textContent = new Date().getFullYear();
 
-  // Nav border on scroll
-  const nav = document.querySelector(".nav");
-  const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > 8);
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+  /* ── Pointer state ────────────────────────────────── */
+  const mouse = { x: innerWidth / 2, y: innerHeight / 2, active: false };
+  addEventListener("pointermove", e => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true; }, { passive: true });
 
-  // Reveal on scroll
-  const items = document.querySelectorAll(".reveal");
-  if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("is-visible"); io.unobserve(en.target); } });
-    }, { threshold: .15 });
-    items.forEach(i => io.observe(i));
-  } else {
-    items.forEach(i => i.classList.add("is-visible"));
+  /* ── Custom cursor ────────────────────────────────── */
+  const cursor = $(".cursor");
+  if (finePointer && !reduced) {
+    root.classList.add("has-cursor");
+    const ring = $(".cursor__ring"), dot = $(".cursor__dot"), label = $(".cursor__label");
+    let rx = mouse.x, ry = mouse.y;
+    const loop = () => {
+      rx += (mouse.x - rx) * 0.2; ry += (mouse.y - ry) * 0.2;
+      ring.style.transform = `translate(${rx}px, ${ry}px)`;
+      dot.style.transform = `translate(${mouse.x}px, ${mouse.y}px)`;
+      requestAnimationFrame(loop);
+    };
+    loop();
+    document.addEventListener("pointerover", e => {
+      const target = e.target.closest("a, button, label, [data-cursor]");
+      cursor.classList.toggle("is-hover", !!target);
+      label.textContent = target ? (target.dataset.cursor || "") : "";
+      cursor.classList.toggle("on-dark", !!e.target.closest(".sec--ink, .marquee"));
+    });
+    document.addEventListener("pointerdown", () => cursor.classList.add("is-down"));
+    document.addEventListener("pointerup", () => cursor.classList.remove("is-down"));
+    document.addEventListener("pointerleave", () => cursor.classList.add("is-hidden"));
+    document.addEventListener("pointerenter", () => cursor.classList.remove("is-hidden"));
   }
 
-  // Contact form → opens the visitor's mail client (no backend needed on GitHub Pages)
-  const form = document.getElementById("contactForm");
-  const note = document.getElementById("formNote");
+  /* ── Lyre sound (Karplus–Strong) ──────────────────── */
+  const sound = { on: false, ctx: null, cache: new Map(), last: 0 };
+  // D Dorian across ~3 octaves — an old Greek mode for a Greek lyre
+  const DORIAN = [0, 2, 3, 5, 7, 9, 10];
+  const noteFreq = i => {
+    const oct = Math.floor(i / DORIAN.length), step = DORIAN[i % DORIAN.length];
+    return 146.83 * Math.pow(2, (oct * 12 + step) / 12); // D3 base
+  };
+  function ksBuffer(freq) {
+    const key = Math.round(freq);
+    if (sound.cache.has(key)) return sound.cache.get(key);
+    const sr = sound.ctx.sampleRate, len = Math.floor(sr * 1.8), N = Math.round(sr / freq);
+    const buf = sound.ctx.createBuffer(1, len, sr), d = buf.getChannelData(0);
+    for (let i = 0; i < N; i++) d[i] = Math.random() * 2 - 1;
+    for (let i = N; i < len; i++) d[i] = 0.4985 * (d[i - N] + d[i - N + 1]);
+    sound.cache.set(key, buf);
+    return buf;
+  }
+  function pluckSound(index, strength) {
+    if (!sound.on || !sound.ctx) return;
+    const now = sound.ctx.currentTime;
+    if (now - sound.last < 0.025) return;
+    sound.last = now;
+    const src = sound.ctx.createBufferSource(); src.buffer = ksBuffer(noteFreq(index));
+    const g = sound.ctx.createGain(); g.gain.value = 0.12 + 0.25 * strength;
+    const f = sound.ctx.createBiquadFilter(); f.type = "lowpass"; f.frequency.value = 2600;
+    src.connect(f).connect(g).connect(sound.ctx.destination); src.start();
+  }
+  const soundBtn = $("#soundToggle");
+  soundBtn.addEventListener("click", () => {
+    sound.on = !sound.on;
+    soundBtn.setAttribute("aria-pressed", sound.on);
+    if (sound.on && !sound.ctx) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (AC) sound.ctx = new AC();
+    }
+    if (sound.ctx && sound.ctx.state === "suspended") sound.ctx.resume();
+    if (sound.on) pluckSound(7, .6);
+  });
+
+  /* ── Strings (hero canvas) ────────────────────────── */
+  const hero = $(".hero");
+  const cvs = $("#strings");
+  const ctx = cvs.getContext("2d");
+  let W = 0, H = 0, DPR = 1, strings = [];
+  const css = getComputedStyle(root);
+  const INK = css.getPropertyValue("--ink").trim() || "#141311";
+  const CLAY = css.getPropertyValue("--clay").trim() || "#c4612f";
+  const PAPER = css.getPropertyValue("--paper").trim() || "#efeae0";
+
+  // deterministic pseudo-random so the layout is stable
+  let seed = 7;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+  function buildStrings() {
+    const r = hero.getBoundingClientRect();
+    W = r.width; H = r.height; DPR = Math.min(devicePixelRatio || 1, 2);
+    cvs.width = W * DPR; cvs.height = H * DPR;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    seed = 7;
+    const gap = W < 700 ? 30 : 38;
+    const count = Math.floor(W / gap);
+    const cx = W / 2;
+    strings = [];
+    for (let i = 0; i < count; i++) {
+      const xt = (i + 0.5) * (W / count);
+      const xb = cx + (xt - cx) * 0.72;            // strings converge like the lyre
+      const nodes = [];
+      const n = rnd() < 0.55 ? 1 : 2;
+      for (let k = 0; k < n; k++) nodes.push(0.12 + rnd() * 0.72);
+      strings.push({ xt, xb, nodes, amp: 0, py: 0.5, t0: 0, w: 22 + rnd() * 10, glow: 0, last: 0, note: i % 21 });
+    }
+  }
+  const xAt = (s, y) => s.xt + (s.xb - s.xt) * (y / H);
+
+  function pluck(s, y, strength) {
+    const now = performance.now();
+    if (now - s.last < 70) return;
+    s.last = now; s.t0 = now; s.py = clamp(y / H, 0.05, 0.95);
+    s.amp = clamp(strength, 0.15, 1) * (W < 700 ? 12 : 18);
+    s.glow = 1;
+    pluckSound(s.note, strength);
+  }
+
+  // detect crossings between successive pointer positions inside the hero
+  let prev = null;
+  function onHeroMove(e) {
+    const r = cvs.getBoundingClientRect();
+    const p = { x: e.clientX - r.left, y: e.clientY - r.top, t: performance.now() };
+    if (prev && p.t - prev.t < 120) {
+      const dt = Math.max(1, p.t - prev.t);
+      const speed = Math.hypot(p.x - prev.x, p.y - prev.y) / dt; // px per ms
+      for (const s of strings) {
+        const a = prev.x - xAt(s, prev.y), b = p.x - xAt(s, p.y);
+        if ((a <= 0 && b > 0) || (a >= 0 && b < 0)) pluck(s, p.y, speed / 1.6);
+      }
+    }
+    prev = p;
+  }
+  hero.addEventListener("pointermove", onHeroMove, { passive: true });
+  hero.addEventListener("pointerleave", () => { prev = null; });
+  hero.addEventListener("pointerdown", e => { prev = null; onHeroMove(e); });
+
+  let heroVisible = true;
+  new IntersectionObserver(([en]) => { heroVisible = en.isIntersecting; }).observe(hero);
+
+  let nextAmbient = 0;
+  function draw(now) {
+    requestAnimationFrame(draw);
+    if (!heroVisible) return;
+    // occasional soft ambient pluck so the field never feels dead
+    if (!reduced && now > nextAmbient && strings.length) {
+      const s = strings[Math.floor(Math.random() * strings.length)];
+      if (now - s.last > 1500) {
+        const keepSound = sound.on; sound.on = false;
+        pluck(s, H * (0.25 + Math.random() * 0.5), 0.18); s.glow = 0.4;
+        sound.on = keepSound;
+      }
+      nextAmbient = now + 1800 + Math.random() * 2600;
+    }
+    ctx.clearRect(0, 0, W, H);
+    ctx.lineCap = "round";
+    for (const s of strings) {
+      const tt = (now - s.t0) / 1000;
+      const env = s.amp ? s.amp * Math.exp(-tt * 3.2) : 0;
+      const d = env * Math.sin(tt * s.w);
+      if (env < 0.05) s.amp = 0;
+      s.glow *= 0.96;
+      const py = s.py * H;
+      const off = y => d * (y < py ? y / py : (H - y) / (H - py));
+
+      ctx.strokeStyle = s.glow > 0.05 ? mix(s.glow) : "rgba(20,19,17,.13)";
+      ctx.lineWidth = 1 + s.glow * 0.8;
+      ctx.beginPath();
+      ctx.moveTo(s.xt, 0);
+      ctx.lineTo(xAt(s, py) + d, py);
+      ctx.lineTo(s.xb, H);
+      ctx.stroke();
+
+      for (const ny of s.nodes) {
+        const y = ny * H, x = xAt(s, y) + off(y);
+        ctx.beginPath();
+        ctx.arc(x, y, 4.2, 0, Math.PI * 2);
+        ctx.fillStyle = s.glow > 0.2 ? CLAY : PAPER;
+        ctx.fill();
+        ctx.lineWidth = 1.4;
+        ctx.strokeStyle = s.glow > 0.05 ? mix(s.glow) : "rgba(20,19,17,.32)";
+        ctx.stroke();
+      }
+    }
+  }
+  function mix(g) { // ink → clay as a string glows
+    const a = 0.13 + g * 0.87;
+    return `rgba(196,97,47,${a.toFixed(3)})`;
+  }
+  buildStrings();
+  let rT; addEventListener("resize", () => { clearTimeout(rT); rT = setTimeout(buildStrings, 120); });
+  requestAnimationFrame(draw);
+
+  /* ── Bar: shadow + hide on scroll down ────────────── */
+  const bar = $(".bar");
+  let lastY = scrollY, scrollV = 0;
+  addEventListener("scroll", () => {
+    const y = scrollY;
+    scrollV = y - lastY;
+    bar.classList.toggle("is-scrolled", y > 8);
+    if (!menuOpen) bar.classList.toggle("is-away", y > 500 && scrollV > 4);
+    if (scrollV < -4) bar.classList.remove("is-away");
+    lastY = y;
+  }, { passive: true });
+
+  /* ── Mobile menu ──────────────────────────────────── */
+  const menuBtn = $("#menuBtn"), nav = $("#nav");
+  let menuOpen = false;
+  const setMenu = o => { menuOpen = o; menuBtn.setAttribute("aria-expanded", o); nav.classList.toggle("is-open", o); };
+  menuBtn.addEventListener("click", () => setMenu(!menuOpen));
+  nav.addEventListener("click", e => { if (e.target.closest("a")) setMenu(false); });
+
+  /* ── Active nav link ──────────────────────────────── */
+  const links = $$(".bar__nav a");
+  const secObs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) links.forEach(a => a.classList.toggle("is-active", a.hash === "#" + en.target.id));
+    });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+  ["services", "process", "work", "contact"].forEach(id => secObs.observe(document.getElementById(id)));
+
+  /* ── Marquee driven by scroll velocity ────────────── */
+  const track = $("#marquee");
+  let mx = 0, dir = 1;
+  (function marquee() {
+    if (!reduced) {
+      if (Math.abs(scrollV) > 1) dir = Math.sign(scrollV);
+      mx -= (0.6 + Math.min(Math.abs(scrollV), 40) * 0.25) * dir;
+      scrollV *= 0.9;
+      const half = track.scrollWidth / 2;
+      if (half) { if (mx <= -half) mx += half; if (mx > 0) mx -= half; }
+      track.style.transform = `translate3d(${mx}px,0,0)`;
+    }
+    requestAnimationFrame(marquee);
+  })();
+
+  /* ── Services: fill enters from the side you came in ─ */
+  $$(".rhap").forEach(row => {
+    row.addEventListener("pointerenter", e => {
+      const r = row.getBoundingClientRect();
+      row.style.setProperty("--origin", e.clientY - r.top < r.height / 2 ? "top" : "bottom");
+    });
+    row.addEventListener("pointerleave", e => {
+      const r = row.getBoundingClientRect();
+      row.style.setProperty("--origin", e.clientY - r.top < r.height / 2 ? "top" : "bottom");
+    });
+  });
+
+  /* ── Process trace fills as you scroll ────────────── */
+  const route = $("#route"), fill = $("#routeFill"), steps = $$(".route__steps li");
+  function updateRoute() {
+    const r = route.getBoundingClientRect();
+    const mid = innerHeight * 0.6;
+    const p = clamp((mid - r.top) / r.height, 0, 1);
+    fill.style.height = (p * 100).toFixed(2) + "%";
+    steps.forEach(li => li.classList.toggle("on", li.getBoundingClientRect().top + 18 < mid));
+  }
+  addEventListener("scroll", updateRoute, { passive: true });
+  updateRoute();
+
+  /* ── Tilt on the case study, gaze on the about mark ─ */
+  if (finePointer && !reduced) {
+    const tilt = $("#tilt"), browser = $(".browser", tilt);
+    tilt.addEventListener("pointermove", e => {
+      const r = tilt.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+      browser.style.setProperty("--ry", (x * 10).toFixed(2) + "deg");
+      browser.style.setProperty("--rx", (-y * 8).toFixed(2) + "deg");
+    });
+    tilt.addEventListener("pointerleave", () => { browser.style.setProperty("--ry", "0deg"); browser.style.setProperty("--rx", "0deg"); });
+
+    const about = $("#about"), mark = $(".about__mark");
+    about.addEventListener("pointermove", e => {
+      const r = mark.getBoundingClientRect();
+      const x = clamp((e.clientX - (r.left + r.width / 2)) / innerWidth, -0.5, 0.5);
+      const y = clamp((e.clientY - (r.top + r.height / 2)) / innerHeight, -0.5, 0.5);
+      mark.style.setProperty("--ry", (x * 40).toFixed(2) + "deg");
+      mark.style.setProperty("--rx", (-y * 30).toFixed(2) + "deg");
+    });
+    about.addEventListener("pointerleave", () => { mark.style.setProperty("--ry", "0deg"); mark.style.setProperty("--rx", "0deg"); });
+
+    /* magnetic buttons */
+    $$(".magnetic").forEach(m => {
+      m.addEventListener("pointermove", e => {
+        const r = m.getBoundingClientRect();
+        const x = e.clientX - (r.left + r.width / 2), y = e.clientY - (r.top + r.height / 2);
+        m.style.transform = `translate(${x * 0.25}px, ${y * 0.35}px)`;
+      });
+      m.addEventListener("pointerleave", () => { m.style.transition = "transform .5s cubic-bezier(.2,.7,.1,1), background .3s, color .3s"; m.style.transform = ""; });
+      m.addEventListener("pointerenter", () => { m.style.transition = "transform .1s linear, background .3s, color .3s"; });
+    });
+  }
+
+  /* ── Reveal on scroll ─────────────────────────────── */
+  const rvTargets = $$(".sec__label, .sec__title, .rhap, .case__visual, .case__text, .about__markwrap, .about__text, .contact__title, .contact__grid > *");
+  if (!reduced && "IntersectionObserver" in window) {
+    rvTargets.forEach(n => n.classList.add("rv"));
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+    rvTargets.forEach(n => io.observe(n));
+  }
+  requestAnimationFrame(() => root.classList.add("is-ready"));
+
+  /* ── Copy email ───────────────────────────────────── */
+  const copyBtn = $("#copyMail");
+  copyBtn.addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(EMAIL); } catch { /* ignore */ }
+    copyBtn.textContent = t("contact.copied");
+    setTimeout(() => { copyBtn.textContent = t("contact.copy"); }, 1800);
+  });
+
+  /* ── Contact form → mailto (no backend on GitHub Pages) ─ */
+  const form = $("#contactForm"), note = $("#formNote");
   form.addEventListener("submit", e => {
     e.preventDefault();
     const d = new FormData(form);
-    const name = (d.get("name") || "").trim();
-    const email = (d.get("email") || "").trim();
-    const msg = (d.get("message") || "").trim();
+    const name = String(d.get("name") || "").trim();
+    const email = String(d.get("email") || "").trim();
+    const msg = String(d.get("message") || "").trim();
     if (!name || !/^\S+@\S+\.\S+$/.test(email) || !msg) {
       note.textContent = t("form.err"); note.classList.add("is-error"); return;
     }
     note.classList.remove("is-error");
     const subject = `[Homeric Code] ${d.get("type")} — ${name}`;
     const body = `${msg}\n\n— ${name}\n${email}`;
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     note.textContent = t("form.ok");
   });
-
-  document.getElementById("year").textContent = new Date().getFullYear();
 })();

@@ -40,7 +40,7 @@
     "about.p1": "Chios, the island tradition links to Homer, is our source of inspiration. Just as the Homeric epics stand out for their structure, rhythm and timelessness, we build software with a focus on clean architecture, consistency and long-term reliability.",
     "about.p3": "Our collaboration is built on direct communication, transparency and personal accountability.",
     "about.p2": "With experience in designing and delivering complex information systems, we bring the same technical rigour and commitment to quality to every project, regardless of size or complexity.",
-    "contact.label": "Contact", "contact.t1": "Let's", "contact.t2": "talk.",
+    "contact.label": "Contact", "contact.t1": "Every project has", "contact.t2": "a beginning.",
     "contact.lead": "Tell us a little about your project. We reply within 1–2 business days with first thoughts and a cost range.",
     "contact.copy": "copy address", "contact.copied": "copied ✓",
     "f.name": "Name", "f.email": "Email", "f.type": "What do you need?", "f.msg": "A few words about the project", "f.send": "Send",

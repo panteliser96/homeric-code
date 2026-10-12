@@ -217,7 +217,7 @@ button { font: inherit; color: inherit; }
 .about__text p:not(.about__big) { color: rgba(239,234,224,.72); max-width: 60ch; }
 
 /* Contact */
-.contact__title { font: 400 clamp(3.2rem, 12vw, 11rem)/.92 var(--serif); letter-spacing: -.05em; margin-bottom: clamp(48px, 7vw, 96px); }
+.contact__title { font: 400 clamp(2.6rem, 8vw, 8rem)/.95 var(--serif); letter-spacing: -.045em; margin-bottom: clamp(48px, 7vw, 96px); }
 .contact__title em { color: var(--clay); font-style: normal; font-weight: 300; }
 .contact__grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(40px, 7vw, 120px); align-items: start; }
 .contact__info p { color: var(--ink-2); max-width: 40ch; }

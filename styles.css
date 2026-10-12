@@ -138,12 +138,12 @@ button { font: inherit; color: inherit; }
 .sec { padding: clamp(80px, 12vw, 160px) var(--pad); position: relative; }
 .sec__label { display: flex; gap: 18px; color: var(--mute); margin-bottom: 28px; }
 .sec__label span:first-child { color: var(--clay); }
-.sec__title { font: 400 clamp(2rem, 5vw, 4.4rem)/1.02 var(--serif); letter-spacing: -.035em; max-width: 16ch; margin-bottom: clamp(48px, 7vw, 96px); }
+.sec__title { font: 400 clamp(2rem, 5vw, 4.4rem)/1.02 var(--serif); letter-spacing: -.035em; max-width: 20ch; margin-bottom: clamp(48px, 7vw, 96px); }
 
 /* Services — rhapsodies */
 .rhaps { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--ink); }
 .rhap {
-  position: relative; display: grid; grid-template-columns: 72px minmax(0, 1.1fr) minmax(0, 1fr) 200px; gap: 24px; align-items: baseline;
+  position: relative; display: grid; grid-template-columns: 72px minmax(0, 1.1fr) minmax(0, 1fr) 230px; gap: 24px; align-items: baseline;
   padding: 30px 0; border-top: 1px solid var(--ink); isolation: isolate; cursor: default;
 }
 .rhap::before {

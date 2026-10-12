@@ -15,11 +15,11 @@
     "skip": "Skip to content", "sound": "Lyre sound",
     "nav.services": "Services", "nav.process": "Process", "nav.work": "Work", "nav.contact": "Contact",
     "hero.chios": "Chios", "hero.l1": "Websites", "hero.l2": "& applications,", "hero.l3": "made with measure.",
-    "hero.lead": "I design, build and maintain websites and web applications for businesses that want something made properly — not another template.",
+    "hero.lead": "We design, build and maintain websites and web applications for businesses that want something made properly — not another template.",
     "hero.cta": "Start a project",
     "hero.hint": "↔ move your cursor across the strings",
     "hero.hintTouch": "↔ swipe across the strings",
-    "services.label": "Services", "services.title": "Six things I do well.",
+    "services.label": "Services", "services.title": "Six things we do well.",
     "s1.t": "Website development", "s1.d": "Business sites, landing pages and e-shops on WordPress — fast, mobile-ready and shaped around your brand.",
     "s2.t": "Web applications", "s2.d": "Custom applications, admin panels, booking systems and integrations with third-party systems via APIs.",
     "s3.t": "Management & maintenance", "s3.d": "Updates, backups, security and content changes, so your site keeps working without you having to think about it.",
@@ -35,12 +35,12 @@
     "work.label": "Work", "work.tag": "WordPress · Health & wellness",
     "work.d": "Website for a dietitian: programme presentation, blog and contact form. Domain, hosting and professional email set up from scratch, with guidance at every step.",
     "work.link": "Visit the site",
-    "about.label": "Who builds it",
-    "about.big": "One developer in Chios. You talk directly to the person writing the code.",
-    "about.p1": "Homeric Code is my independent business. By day I'm a Full Stack Engineer on large information systems (.NET, SQL Server, government service integrations) — and I bring the same discipline to every project, however small.",
-    "about.p2": "The name? By tradition, Homer came from Chios. The lyre with circuit traces is my take on the rhapsode.",
+    "about.label": "Epic code",
+    "about.big": "Epic code, written in Chios.",
+    "about.p1": "By tradition, Homer came from Chios. His epics lasted for centuries because they had structure, rhythm and measure. We write code by the same principles: clean architecture, consistency and solutions built to last.",
+    "about.p2": "We have experience on large information systems (.NET, SQL Server, government service integrations) and bring the same discipline to every project, small or large. You talk directly to the people writing the code — no middlemen.",
     "contact.label": "Contact", "contact.t1": "Let's", "contact.t2": "talk.",
-    "contact.lead": "Tell me a little about your project. I reply within 1–2 business days with first thoughts and a cost range.",
+    "contact.lead": "Tell us a little about your project. We reply within 1–2 business days with first thoughts and a cost range.",
     "contact.copy": "copy address", "contact.copied": "copied ✓",
     "f.name": "Name", "f.email": "Email", "f.type": "What do you need?", "f.msg": "A few words about the project", "f.send": "Send",
     "f.o1": "Website", "f.o2": "Application", "f.o3": "Maintenance", "f.o5": "Something else",
@@ -62,12 +62,10 @@
   };
   let lang = store.get("hc-lang") || ((navigator.language || "el").startsWith("el") ? "el" : "en");
   const t = k => dict[lang][k] ?? dict.el[k] ?? k;
-  const hintKey = finePointer ? "hero.hint" : "hero.hintTouch";
 
   function applyLang() {
     root.lang = lang;
     $$("[data-i18n]").forEach(n => { n.textContent = t(n.dataset.i18n); });
-    $(".hero__hint").textContent = t(hintKey);
     $("#langToggle").textContent = lang === "el" ? "EN" : "ΕΛ";
     document.title = lang === "el" ? "Homeric Code — Ιστοσελίδες & Εφαρμογές" : "Homeric Code — Websites & Applications";
   }

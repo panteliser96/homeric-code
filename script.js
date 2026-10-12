@@ -15,7 +15,7 @@
     "skip": "Skip to content", "sound": "Lyre sound",
     "nav.services": "Services", "nav.process": "Process", "nav.work": "Work", "nav.contact": "Contact",
     "hero.chios": "Chios", "hero.l1": "Websites", "hero.l2": "& applications,", "hero.l3": "made with measure.",
-    "hero.lead": "We design, build and maintain websites and web applications for businesses that want something made properly — not another template.",
+    "hero.lead": "We design, develop and modernize websites and web applications, delivering reliable digital solutions tailored to the needs of every business.",
     "hero.cta": "Start a project",
     "hero.hint": "↔ move your cursor across the strings",
     "hero.hintTouch": "↔ swipe across the strings",
@@ -140,15 +140,30 @@
     src.connect(f).connect(g).connect(sound.ctx.destination); src.start();
   }
   const soundBtn = $("#soundToggle");
+  function ensureAudio() {
+    if (!sound.ctx) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (AC) { try { sound.ctx = new AC(); } catch { /* noop */ } }
+    }
+    if (sound.ctx && sound.ctx.state === "suspended") sound.ctx.resume().catch(() => {});
+  }
+  // Sound is on by default (unless the visitor turned it off before).
+  // Browsers only allow audio after a first click / tap / key press, so we unlock it then.
+  sound.on = store.get("hc-sound") !== "off";
+  soundBtn.setAttribute("aria-pressed", sound.on);
+  if (sound.on) ensureAudio();
+  const unlock = () => {
+    if (sound.on) ensureAudio();
+    if (sound.ctx && sound.ctx.state === "running") {
+      ["pointerdown", "keydown", "touchstart"].forEach(ev => removeEventListener(ev, unlock, true));
+    }
+  };
+  ["pointerdown", "keydown", "touchstart"].forEach(ev => addEventListener(ev, unlock, true));
   soundBtn.addEventListener("click", () => {
     sound.on = !sound.on;
+    store.set("hc-sound", sound.on ? "on" : "off");
     soundBtn.setAttribute("aria-pressed", sound.on);
-    if (sound.on && !sound.ctx) {
-      const AC = window.AudioContext || window.webkitAudioContext;
-      if (AC) sound.ctx = new AC();
-    }
-    if (sound.ctx && sound.ctx.state === "suspended") sound.ctx.resume();
-    if (sound.on) pluckSound(7, .6);
+    if (sound.on) { ensureAudio(); pluckSound(7, .6); }
   });
 
   /* ── Strings (hero canvas) ────────────────────────── */

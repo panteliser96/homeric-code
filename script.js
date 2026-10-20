@@ -492,4 +492,11 @@
   const lead = method => { if (gaLoaded) g("event", "generate_lead", { method }); };
   $$('a[href^="mailto:"]').forEach(a => a.addEventListener("click", () => lead("email")));
   $$('a[href^="tel:"]').forEach(a => a.addEventListener("click", () => lead("phone")));
+
+  /* ── Back to top (the #top header is fixed, so anchors alone don't scroll) ─ */
+  $$('a[href="#top"]').forEach(a => a.addEventListener("click", e => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+    history.replaceState(null, "", location.pathname + location.search);
+  }));
 })();

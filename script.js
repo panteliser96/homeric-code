@@ -29,6 +29,26 @@
     "s7.t": "Website Upgrades & Modernization", "s7.d": "We upgrade existing websites with modern technologies and development practices, improving their look, functionality, speed and security — often without the need to rebuild them from scratch.",
     "s8.t": "E-commerce Stores (E-shop)", "s8.d": "We build complete online stores with easy product and order management, secure payments and shipping setup, ready to sell from day one.",
     "s9.t": "Digital Catalogs", "s9.d": "We turn your printed catalogs into digital ones: products, services or menus with search, filters and easy updates, accessible from any device and via QR code.",
+    "faq.label": "FAQ",
+    "faq.title": "Web design in Chios: what you want to know.",
+    "faq1.q": "How much does a website cost?",
+    "faq1.a": "It depends on the type and size of the site: a business website, an e-shop or a web application each have different requirements. After a short conversation we send you a written quote with a fixed price and no hidden fees.",
+    "faq2.q": "Do you only work with businesses in Chios?",
+    "faq2.a": "We are based in Chios and know the needs of local businesses well — tourism, hospitality, retail. We also work with businesses all over Greece, through online meetings and direct communication.",
+    "faq3.q": "How long does it take to build a website?",
+    "faq3.a": "It depends on the project and on how soon texts and photos are available. The exact timeline is set from the start in the proposal we send you.",
+    "faq4.q": "Will my business show up on Google?",
+    "faq4.a": "Every site is built on SEO best practices: fast loading, clean structure, mobile-ready and local keywords. We can also set up and optimise your Google Business Profile, so people searching in your area can find you.",
+    "faq5.q": "Can I update the website myself?",
+    "faq5.a": "Yes. WordPress sites are easy to manage, and at handover we train you to change texts, photos and products without technical knowledge. If you prefer, we can take care of maintenance for you.",
+    "faq6.q": "Do you handle domain, hosting and email?",
+    "faq6.a": "Yes. We help you choose and register a domain, set up hosting and a professional email on your business name, and take care of the SSL certificate.",
+    "ck.text": "With your consent we use Google Analytics cookies to understand how the site is used and to improve it.",
+    "ck.more": "Learn more",
+    "ck.reject": "Reject",
+    "ck.accept": "Accept",
+    "ck.policy": "Cookie policy",
+    "ck.settings": "Cookie settings",
     "process.label": "Process", "process.title": "From the first conversation to going live.",
     "p1.t": "Discovery & Needs Analysis", "p1.d": "We start by understanding your business, your goals and your users’ needs. Together we define the project’s requirements and priorities.",
     "p2.t": "Proposal & Planning", "p2.d": "We put together a complete technical and financial proposal, with a clear scope, a fixed cost and a realistic delivery timeline.",
@@ -105,7 +125,7 @@
       const target = e.target.closest("a, button, label, [data-cursor]");
       cursor.classList.toggle("is-hover", !!target);
       label.textContent = target ? (target.dataset.cursor || "") : "";
-      cursor.classList.toggle("on-dark", !!e.target.closest(".sec--ink, .marquee"));
+      cursor.classList.toggle("on-dark", !!e.target.closest(".sec--ink, .marquee, .cookie"));
     });
     document.addEventListener("pointerdown", () => cursor.classList.add("is-down"));
     document.addEventListener("pointerup", () => cursor.classList.remove("is-down"));
@@ -422,5 +442,54 @@
     const body = `${msg}\n\n— ${name}\n${email}`;
     location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     note.textContent = t("form.ok");
+    lead("form");
   });
+
+  /* ── Cookie consent + Google Analytics (loads only after "Accept") ─ */
+  const GA_ID = "G-VQTZRG4PVE";
+  const banner = $("#cookieBanner");
+  const g = (...a) => { if (typeof window.gtag === "function") window.gtag(...a); };
+  let gaLoaded = false;
+  function loadGA() {
+    if (gaLoaded) return;
+    gaLoaded = true;
+    g("consent", "update", { analytics_storage: "granted" });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+    document.head.appendChild(s);
+    g("js", new Date());
+    g("config", GA_ID);
+  }
+  function clearGACookies() {
+    document.cookie.split(";").map(c => c.trim().split("=")[0]).filter(n => /^_ga/.test(n)).forEach(n => {
+      [location.hostname, "." + location.hostname.replace(/^www\./, "")].forEach(d => {
+        document.cookie = `${n}=; Max-Age=0; path=/; domain=${d}`;
+      });
+      document.cookie = `${n}=; Max-Age=0; path=/`;
+    });
+  }
+  const showBanner = () => { banner.hidden = false; requestAnimationFrame(() => banner.classList.add("is-in")); };
+  const hideBanner = () => { banner.classList.remove("is-in"); setTimeout(() => { banner.hidden = true; }, 300); };
+  function setConsent(granted) {
+    store.set("hc-consent", granted ? "granted" : "denied");
+    if (granted) loadGA();
+    else {
+      g("consent", "update", { analytics_storage: "denied" });
+      clearGACookies();
+    }
+    hideBanner();
+  }
+  const consent = store.get("hc-consent");
+  if (consent === "granted") loadGA();
+  else if (consent !== "denied") setTimeout(showBanner, 900);
+  if (location.hash === "#cookie-settings") showBanner();
+  $("#ckAccept").addEventListener("click", () => setConsent(true));
+  $("#ckReject").addEventListener("click", () => setConsent(false));
+  $("#ckOpen").addEventListener("click", showBanner);
+
+  /* lead events (sent only if Analytics was accepted) */
+  const lead = method => { if (gaLoaded) g("event", "generate_lead", { method }); };
+  $$('a[href^="mailto:"]').forEach(a => a.addEventListener("click", () => lead("email")));
+  $$('a[href^="tel:"]').forEach(a => a.addEventListener("click", () => lead("phone")));
 })();

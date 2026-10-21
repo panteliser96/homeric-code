@@ -56,6 +56,7 @@
     "p4.t": "Delivery & Support", "p4.d": "We take the solution into production, provide the training you need and stay by your side with technical support and room for future growth.",
     "work.label": "Work", "work.tag": "WordPress · Health & wellness",
     "work.d": "Website for a dietitian: programme presentation, blog and contact form. Domain, hosting and professional email set up from scratch, with guidance at every step.",
+    "work2.tag": "Upgrade · Shipping", "work2.d": "Upgrade and modernization of the shipbrokers association’s website, with modern technologies and improved functionality built on its existing structure: information for members, seminars and announcements.",
     "work.link": "Visit the site",
     "about.label": "Epic code",
     "about.big": "Epic code, inspired by Chios.",
@@ -376,14 +377,16 @@
 
   /* ── Tilt on the case study, gaze on the about mark ─ */
   if (finePointer && !reduced) {
-    const tilt = $("#tilt"), browser = $(".browser", tilt);
-    tilt.addEventListener("pointermove", e => {
-      const r = tilt.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-      browser.style.setProperty("--ry", (x * 10).toFixed(2) + "deg");
-      browser.style.setProperty("--rx", (-y * 8).toFixed(2) + "deg");
+    $$(".case__visual").forEach(tilt => {
+      const browser = $(".browser", tilt);
+      tilt.addEventListener("pointermove", e => {
+        const r = tilt.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        browser.style.setProperty("--ry", (x * 10).toFixed(2) + "deg");
+        browser.style.setProperty("--rx", (-y * 8).toFixed(2) + "deg");
+      });
+      tilt.addEventListener("pointerleave", () => { browser.style.setProperty("--ry", "0deg"); browser.style.setProperty("--rx", "0deg"); });
     });
-    tilt.addEventListener("pointerleave", () => { browser.style.setProperty("--ry", "0deg"); browser.style.setProperty("--rx", "0deg"); });
 
     const about = $("#about"), mark = $(".about__mark");
     about.addEventListener("pointermove", e => {

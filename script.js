@@ -30,7 +30,7 @@
     "s8.t": "E-commerce Stores (E-shop)", "s8.d": "We build complete online stores with easy product and order management, secure payments and shipping setup, ready to sell from day one.",
     "s9.t": "Digital Catalogs", "s9.d": "We turn your printed catalogs into digital ones: products, services or menus with search, filters and easy updates, accessible from any device and via QR code.",
     "faq.label": "FAQ",
-    "faq.title": "Web design in Chios: what you want to know.",
+    "faq.title": "Web design: what you want to know.",
     "faq1.q": "How much does a website cost?",
     "faq1.a": "It depends on the type and size of the site: a business website, an e-shop or a web application each have different requirements. After a short conversation we send you a written quote with a fixed price and no hidden fees.",
     "faq2.q": "Do you only work with businesses in Chios?",

@@ -57,6 +57,7 @@
     "work.label": "Work", "work.tag": "WordPress · Health & wellness",
     "work.d": "Website for a dietitian: programme presentation, blog and contact form. Domain, hosting and professional email set up from scratch, with guidance at every step.",
     "work2.tag": "Upgrade · Shipping", "work2.d": "Upgrade and modernization of the shipbrokers association’s website, with modern technologies and improved functionality built on its existing structure: information for members, seminars and announcements.",
+    "work3.tag": "Interactive map · Culture", "work3.d": "Interactive map and directory of the cultural associations of Chios: activities, schedules, venues and contact details in one place, searchable by village and activity.",
     "work.link": "Visit the site",
     "about.label": "Epic code",
     "about.big": "Epic code, inspired by Chios.",
